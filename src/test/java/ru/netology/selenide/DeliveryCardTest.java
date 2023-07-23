@@ -37,12 +37,11 @@ public class DeliveryCardTest {
         open("http://localhost:9999/");
         $("[placeholder='Город']").setValue("Москва");
 
-        // $("[placeholder='Дата встречи']").setValue("2023-06-11");
-        Placeholder placeholder = new Placeholder("calendar-input__native-control");
-        Placeholder.delete();
+        $("[]").setValue(currentDate);
+       // $(By.className("input_control")).click();
+
 
         String currentDate = generateDate(4, "dd.MM.yyyy");
-
 
         $("[placeholder='Дата встречи']").setValue(currentDate);
 
@@ -53,7 +52,7 @@ public class DeliveryCardTest {
         $(By.className("notification__content"));
 
         //  String expected = "Успешно!Ваша встреча успешно забронирована на 12.06.2023";
-        $x("//div[contains(@class, 'notification_content')]").shouldBe(Condition.visible, Duration.ofSeconds(8));
+        $x("//div[contains(@class,'notification_content')]").shouldBe(Condition.visible, Duration.ofSeconds(8));
         $("[data-test-id='notification'] input").shouldHave(Condition.exactText("Ваша встреча успешно забронирована на" + currentDate));
         // String actual = String.valueOf($("[notification='Успешно!Встреча успешно забронирована на 12.06.2023']"));
 
