@@ -10,9 +10,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+//import org.testng.annotations.Test;
 
 import javax.xml.xpath.XPath;
 import java.time.Duration;
@@ -37,29 +39,22 @@ public class DeliveryCardTest {
         open("http://localhost:9999/");
         $("[placeholder='Город']").setValue("Москва");
 
-        $("[]").setValue(currentDate);
-       // $(By.className("input_control")).click();
+        String currentDate = generateDate(5, "dd.MM.yyyy");
 
-
-        String currentDate = generateDate(4, "dd.MM.yyyy");
-
+        $("[placeholder='Дата встречи']").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[placeholder='Дата встречи']").setValue(currentDate);
-
         $("[name='name']").setValue("Иванов Иван");
         $("[name='phone']").setValue("+89856432137");
         $(By.className("checkbox__box")).click();
         $(By.className("button__text")).click();
-        $(By.className("notification__content"));
+        $("notification__content");
 
-        //  String expected = "Успешно!Ваша встреча успешно забронирована на 12.06.2023";
-        $x("//div[contains(@class,'notification_content')]").shouldBe(Condition.visible, Duration.ofSeconds(8));
-        $("[data-test-id='notification'] input").shouldHave(Condition.exactText("Ваша встреча успешно забронирована на" + currentDate));
-        // String actual = String.valueOf($("[notification='Успешно!Встреча успешно забронирована на 12.06.2023']"));
 
-        // assertEquals(expected, actual);
+        $x("//div[contains(@class, 'notification__content')]").shouldBe(Condition.visible, Duration.ofSeconds(15));
+        $x("//div[contains(@class, 'notification__content')]").shouldHave(Condition.exactText("Встреча успешно забронирована на " + currentDate));
+
+
     }
 
 }
-
-
 
